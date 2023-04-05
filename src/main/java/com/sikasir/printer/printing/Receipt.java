@@ -11,29 +11,26 @@ import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.util.StringTokenizer;
 
-class Receipt implements Printable
-{
+class Receipt implements Printable {
     PrinterConfig conf;
     String doc;
 
-    public Receipt(String receipt, PrinterConfig conf)
-    {
+    public Receipt(String receipt, PrinterConfig conf) {
         this.conf = conf;
         this.doc = receipt;
     }
 
     public int print(Graphics g, PageFormat pageFormat, int page)
-            throws PrinterException
-    {
-        Graphics2D g2d = (Graphics2D)g;
+            throws PrinterException {
+        Graphics2D g2d = (Graphics2D) g;
         g2d.translate(pageFormat.getImageableX(), pageFormat.getImageableY());
         g2d.setPaint(Color.black);
 
         int font_size = this.conf.getFontSize();
         g2d.setFont(new Font(this.conf.getFont(), 0, font_size));
 
-        float x = (float)pageFormat.getImageableX();
-        float y = (float)pageFormat.getImageableY();
+        float x = (float) pageFormat.getImageableX();
+        float y = (float) pageFormat.getImageableY();
         double line_height = font_size * 1.05D;
         StringTokenizer st = new StringTokenizer(this.doc, "#");
         String line = null;
@@ -44,7 +41,7 @@ class Receipt implements Printable
             else {
                 g2d.drawString(" ", x, y);
             }
-            y = (float)(y + line_height);
+            y = (float) (y + line_height);
         }
 
         return 0;
